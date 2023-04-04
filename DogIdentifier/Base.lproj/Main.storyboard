@@ -18,19 +18,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aqh-Mi-0Kq">
-                                <rect key="frame" x="0.0" y="103" width="496" height="939"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="0.0" y="92" width="414" height="834"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="ho3-jI-h7y">
-                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="uDk-9D-tMQ">
-                            <connections>
-                                <action selector="cameraTapped:" destination="BYZ-38-t0r" id="fLv-TI-gHV"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="camera" id="uDk-9D-tMQ">
+                                <connections>
+                                    <action selector="cameraTapped:" destination="BYZ-38-t0r" id="fLv-TI-gHV"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="add" id="TNH-eM-jqF">
+                                <connections>
+                                    <action selector="albumTapped:" destination="BYZ-38-t0r" id="ctU-ny-vih"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="ImageView" destination="aqh-Mi-0Kq" id="D9a-9A-vf9"/>
