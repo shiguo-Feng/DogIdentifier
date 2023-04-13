@@ -8,29 +8,38 @@
 import UIKit
 import CoreML
 import Vision
+import Alamofire
+import SwiftyJSON
+import SDWebImage
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    let uniqueLabels = ["affenpinscher", "afghan_hound", "african_hunting_dog", "airedale", "american_staffordshire_terrier", "appenzeller", "australian_terrier", "basenji", "basset", "beagle", "bedlington_terrier", "bernese_mountain_dog", "black-and-tan_coonhound", "blenheim_spaniel", "bloodhound", "bluetick", "border_collie", "border_terrier", "borzoi", "boston_bull", "bouvier_des_flandres", "boxer", "brabancon_griffon", "briard", "brittany_spaniel", "bull_mastiff", "cairn", "cardigan", "chesapeake_bay_retriever", "chihuahua", "chow", "clumber", "cocker_spaniel", "collie", "curly-coated_retriever", "dandie_dinmont", "dhole", "dingo", "doberman", "english_foxhound", "english_setter", "english_springer", "entlebucher", "eskimo_dog", "flat-coated_retriever", "french_bulldog", "german_shepherd", "german_short-haired_pointer", "giant_schnauzer", "golden_retriever", "gordon_setter", "great_dane", "great_pyrenees", "greater_swiss_mountain_dog", "groenendael", "ibizan_hound", "irish_setter", "irish_terrier", "irish_water_spaniel", "irish_wolfhound", "italian_greyhound", "japanese_spaniel", "keeshond", "kelpie", "kerry_blue_terrier", "komondor", "kuvasz", "labrador_retriever", "lakeland_terrier", "leonberg", "lhasa", "malamute", "malinois", "maltese_dog", "mexican_hairless", "miniature_pinscher", "miniature_poodle", "miniature_schnauzer", "newfoundland", "norfolk_terrier", "norwegian_elkhound", "norwich_terrier", "old_english_sheepdog", "otterhound", "papillon", "pekinese", "pembroke", "pomeranian", "pug", "redbone", "rhodesian_ridgeback", "rottweiler", "saint_bernard", "saluki", "samoyed", "schipperke", "scotch_terrier", "scottish_deerhound", "sealyham_terrier", "shetland_sheepdog", "shih-tzu", "siberian_husky", "silky_terrier", "soft-coated_wheaten_terrier", "staffordshire_bullterrier", "standard_poodle", "standard_schnauzer", "sussex_spaniel", "tibetan_mastiff", "tibetan_terrier", "toy_poodle", "toy_terrier", "vizsla", "walker_hound", "weimaraner", "welsh_springer_spaniel", "west_highland_white_terrier", "whippet", "wire-haired_fox_terrier", "yorkshire_terrier"]
+    let uniqueLabels = ["Affenpinscher", "Afghan Hound", "African Hunting Dog", "Airedale Terrier", "American Staffordshire Terrier", "Appenzeller Sennenhund", "Australian Terrier", "Basenji", "Basset", "Beagle", "Bedlington Terrier", "Bernese Mountain Dog", "Black-and-tan Coonhound", "Blenheim Spaniel", "Bloodhound", "Bluetick", "Border Collie", "Border Terrier", "Borzoi", "Boston Terrier", "Bouvier Des Flandres", "Boxer (dog)", "Brabancon Griffon", "Briard", "Brittany Spaniel", "Bull Mastiff", "Cairn Terrier", "Cardigan Welsh Corgi", "Chesapeake Bay Retriever", "Chihuahua (dog)", "Chow (dog)", "Clumber Spaniel", "Cocker Spaniel", "Collie", "Curly-coated Retriever", "Dandie Dinmont", "Dhole", "Dingo", "Doberman", "English Foxhound", "English Setter", "English Springer", "Entlebucher", "American Eskimo Dog", "Flat-coated Retriever", "French Bulldog", "German Shepherd", "German Short-haired Pointer", "Giant Schnauzer", "Golden Retriever", "Gordon Setter", "Great Dane", "Great Pyrenees", "Greater Swiss Mountain Dog", "Groenendael", "Ibizan Hound", "Irish Setter", "Irish Terrier", "Irish Water Spaniel", "Irish Wolfhound", "Italian Greyhound", "Japanese Spaniel", "Keeshond", "Australian Kelpie", "Kerry Blue Terrier", "Komondor", "Kuvasz", "Labrador Retriever", "Lakeland Terrier", "Leonberger", "Lhasa Apso", "Malamute", "Belgian Shepherd", "Maltese Dog", "Xoloitzcuintle", "Miniature Pinscher", "Miniature Poodle", "Miniature Schnauzer", "Newfoundland dog", "Norfolk Terrier", "Norwegian Elkhound", "Norwich Terrier", "Old English Sheepdog", "Otterhound", "Papillon dog", "Pekinese", "Pembroke Welsh Corgi", "Pomeranian dog", "Pug", "Redbone Coonhound", "Rhodesian Ridgeback", "Rottweiler", "St. Bernard (dog)", "Saluki", "Samoyed dog", "Schipperke", "Scotch Terrier", "Scottish Deerhound", "Sealyham Terrier", "Shetland Sheepdog", "Shih-tzu", "Siberian Husky", "Silky Terrier", "Soft-coated Wheaten Terrier", "Staffordshire Bull Terrier", "Standard Poodle", "Standard Schnauzer", "Sussex Spaniel", "Tibetan Mastiff", "Tibetan Terrier", "Toy Poodle", "Toy Terrier", "Vizsla", "Treeing Walker Coonhound", "Weimaraner", "Welsh Springer Spaniel", "West Highland White Terrier", "Whippet", "Wire Fox Terrier", "Yorkshire Terrier"]
 
+    @IBOutlet weak var outputButton1: UIButton!
+    @IBOutlet weak var outputButton2: UIButton!
+    var buttons = [UIButton]()
+    @IBOutlet weak var explainTextLabel: UILabel!
     let imagePicker = UIImagePickerController()
-    let model = try? DogC(configuration: MLModelConfiguration())
+    let model = try? DogFullClassifier(configuration: MLModelConfiguration())
+    let wikipediaURL = "https://www.wikipedia.org/w/api.php"
     @IBOutlet weak var imageView: UIImageView!
     
+    @IBOutlet weak var backgroundImage: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
-        imagePicker.sourceType  = .camera
+//        imagePicker.sourceType  = .camera
+        updateViews()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(labelTapped))
+        explainTextLabel.addGestureRecognizer(tapGesture)
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let userPickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-//            guard let convertedCIImage = CIImage(image: userPickedImage) else{
-//                fatalError("cannot convert to CIImage")
-//            }
             imageView.image = userPickedImage
             detect(image: userPickedImage)
         }
@@ -38,33 +47,115 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func detect(image: UIImage) {
-        let input = try? DogCInput(input_1With: image.cgImage!)
+        let buttons = [outputButton1, outputButton2]
+        var color: UIColor
+        let input = try? DogFullClassifierInput(input_1With: image.cgImage!)
         let output = try? model?.predictions(inputs: [input!])
         let probs = output![0].Identity
+    
+
         
         if let b = try? UnsafeBufferPointer<Float>(probs) {
             let probsArray = Array(b)
-//            if let maxIndex = probsArray.firstIndex(of: probsArray.max()!) {
-//                print(uniqueLabels[maxIndex])
-//            }
             let sortedProbsArray = probsArray.enumerated().sorted { $0.element > $1.element }
-            let top3 = sortedProbsArray.prefix(3)
-            for (index, value) in top3 {
-                print("Index: \(index), Label: \(uniqueLabels[index]), Value: \(value)")
+            let top2 = sortedProbsArray.prefix(2)
+            for (i, (index, value)) in top2.enumerated() {
+                let label = uniqueLabels[index]
+                let probability = String(format: "%.2f", value * 100)
+                
+                switch value {
+                case 0.85...1:
+                    color = UIColor.green
+                case 0.65 ... 0.84:
+                    color = UIColor.blue
+                case 0.3 ... 0.64:
+                    color = UIColor.gray
+                default:
+                    color = UIColor.red
+                }
+//                let text = "\(label) (\(probability)%)"
+                buttons[i]?.isHidden = false
+                let subtitle = "(\(probability)%)"
+                let attributedText = NSMutableAttributedString(string: label, attributes: [.font: UIFont.systemFont(ofSize: 18)])
+                attributedText.append(NSAttributedString(string: "\n" + subtitle, attributes: [.font: UIFont.systemFont(ofSize: 14), .foregroundColor: color]))
+                buttons[i]?.setAttributedTitle(attributedText, for: .normal)
+//                buttons[i]?.setTitle(text, for: .normal)
+//                self.requestWiki(dogName: uniqueLabels[index])
             }
         }
-
     }
-
+    
+    @objc func labelTapped(sender: UITapGestureRecognizer) {
+        if let label = sender.view as? UILabel {
+            let alertController = UIAlertController(title: nil, message: label.text, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    func requestWiki(dogName: String) {
+        let parameters: [String:String] = [
+            "format": "json",
+            "action": "query",
+            "prop": "extracts|pageimages",
+            "exintro": "",
+            "explaintext": "",
+            "titles" : dogName,
+            "indexpageids": "",
+            "redirects": "1",
+            "pithumbsize" : "500"
+        ]
+        
+        Alamofire.request(wikipediaURL, method: .get, parameters: parameters).responseJSON { (response) in
+            if response.result.isSuccess {
+//                print("Success got the dog info")
+                print(response)
+                
+                let dogJson: JSON = JSON(response.result.value!)
+                let pageid: String = dogJson["query"]["pageids"][0].stringValue
+                let dogDescription: String = dogJson["query"]["pages"][pageid]["extract"].stringValue
+                let dogImageURL = dogJson["query"]["pages"][pageid]["thumbnail"]["source"].stringValue
+                
+                self.imageView.sd_setImage(with: URL(string: dogImageURL))
+                self.explainTextLabel.text = dogDescription
+                self.explainTextLabel.isUserInteractionEnabled = true
+            }
+        }
+    }
+    func updateViews() {
+        navigationItem.title = ""
+        outputButton1.isHidden = true
+        outputButton2.isHidden = true
+        explainTextLabel.text = "Snap a pic or choose one from your gallery to uncover your furry friend's breed. Double-tap to learn more! Welcome to Doggy Identifier!"
+        explainTextLabel.isUserInteractionEnabled = false
+        
+    }
     
     @IBAction func cameraTapped(_ sender: UIBarButtonItem) {
+        updateViews()
         imagePicker.sourceType  = .camera
         present(imagePicker, animated: true, completion: nil)
     }
     @IBAction func albumTapped(_ sender: UIBarButtonItem) {
+        updateViews()
         imagePicker.sourceType  = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
-        
+    }
+    @IBAction func output1Tapped(_ sender: UIButton) {
+        if let title = sender.currentAttributedTitle?.string {
+            let dogName = title.components(separatedBy: "\n")[0]
+            requestWiki(dogName: dogName)
+            navigationItem.title = dogName
+        }
+    }
+
+    @IBAction func output2Tapped(_ sender: UIButton) {
+        if let title = sender.currentAttributedTitle?.string {
+            let dogName = title.components(separatedBy: "\n")[0]
+            requestWiki(dogName: dogName)
+            navigationItem.title = dogName
+        }
     }
 }
 
