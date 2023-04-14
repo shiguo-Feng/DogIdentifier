@@ -18,9 +18,10 @@
 		204EC74529D91C170091AD53 /* DogIdentifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EC74429D91C170091AD53 /* DogIdentifierTests.swift */; };
 		204EC74F29D91C170091AD53 /* DogIdentifierUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EC74E29D91C170091AD53 /* DogIdentifierUITests.swift */; };
 		204EC75129D91C170091AD53 /* DogIdentifierUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EC75029D91C170091AD53 /* DogIdentifierUITestsLaunchTests.swift */; };
-		20C4CE3429DBC97400E19377 /* DogC.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 20C4CE3329DBC97400E19377 /* DogC.mlmodel */; };
 		20C4CE3629DCAB6900E19377 /* DogFullClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 20C4CE3529DCAB6900E19377 /* DogFullClassifier.mlmodel */; };
-		20F3D79229E7EC6C00762A17 /* LMcXPmhqcZ3CrbP1Wb5n--4--4mlk0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 20F3D79129E7EC6C00762A17 /* LMcXPmhqcZ3CrbP1Wb5n--4--4mlk0.jpg */; };
+		20F3D79729E8E82300762A17 /* LMcXPmhqcZ3CrbP1Wb5n--4--4mlk0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 20F3D79629E8E82300762A17 /* LMcXPmhqcZ3CrbP1Wb5n--4--4mlk0.jpg */; };
+		20F3D79929E8E91C00762A17 /* DogBreed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F3D79829E8E91C00762A17 /* DogBreed.swift */; };
+		20F3D79B29E9011B00762A17 /* DogBreedManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F3D79A29E9011B00762A17 /* DogBreedManager.swift */; };
 		A697AE39AE23B6481402423E /* Pods_DogIdentifierTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC04949081DB71C1CC1A7987 /* Pods_DogIdentifierTests.framework */; };
 		EE8B91ABCA7EDCA2595D3036 /* Pods_DogIdentifier_DogIdentifierUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFC3B33F78EC64AA90E8DD26 /* Pods_DogIdentifier_DogIdentifierUITests.framework */; };
 /* End PBXBuildFile section */
@@ -58,9 +59,10 @@
 		204EC74A29D91C170091AD53 /* DogIdentifierUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DogIdentifierUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		204EC74E29D91C170091AD53 /* DogIdentifierUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogIdentifierUITests.swift; sourceTree = "<group>"; };
 		204EC75029D91C170091AD53 /* DogIdentifierUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogIdentifierUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		20C4CE3329DBC97400E19377 /* DogC.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DogC.mlmodel; sourceTree = "<group>"; };
 		20C4CE3529DCAB6900E19377 /* DogFullClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = DogFullClassifier.mlmodel; sourceTree = "<group>"; };
-		20F3D79129E7EC6C00762A17 /* LMcXPmhqcZ3CrbP1Wb5n--4--4mlk0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "LMcXPmhqcZ3CrbP1Wb5n--4--4mlk0.jpg"; sourceTree = "<group>"; };
+		20F3D79629E8E82300762A17 /* LMcXPmhqcZ3CrbP1Wb5n--4--4mlk0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "LMcXPmhqcZ3CrbP1Wb5n--4--4mlk0.jpg"; sourceTree = "<group>"; };
+		20F3D79829E8E91C00762A17 /* DogBreed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogBreed.swift; sourceTree = "<group>"; };
+		20F3D79A29E9011B00762A17 /* DogBreedManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogBreedManager.swift; sourceTree = "<group>"; };
 		58C80D915EF2F08A74D1D787 /* Pods-DogIdentifier.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DogIdentifier.release.xcconfig"; path = "Target Support Files/Pods-DogIdentifier/Pods-DogIdentifier.release.xcconfig"; sourceTree = "<group>"; };
 		787A5C310882863E45F0E609 /* Pods-DogIdentifier-DogIdentifierUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DogIdentifier-DogIdentifierUITests.debug.xcconfig"; path = "Target Support Files/Pods-DogIdentifier-DogIdentifierUITests/Pods-DogIdentifier-DogIdentifierUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9B911CB6527AB9797542B2F5 /* Pods_DogIdentifier.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DogIdentifier.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -147,15 +149,13 @@
 		204EC72929D91C160091AD53 /* DogIdentifier */ = {
 			isa = PBXGroup;
 			children = (
+				20F3D79529E8D4E500762A17 /* Controller */,
+				20F3D79429E8D4D400762A17 /* View */,
+				20F3D79329E8D4CA00762A17 /* Model */,
 				204EC72A29D91C160091AD53 /* AppDelegate.swift */,
 				204EC72C29D91C160091AD53 /* SceneDelegate.swift */,
-				204EC72E29D91C160091AD53 /* ViewController.swift */,
-				20C4CE3529DCAB6900E19377 /* DogFullClassifier.mlmodel */,
-				204EC73029D91C160091AD53 /* Main.storyboard */,
+				20F3D79629E8E82300762A17 /* LMcXPmhqcZ3CrbP1Wb5n--4--4mlk0.jpg */,
 				204EC73629D91C170091AD53 /* Assets.xcassets */,
-				20C4CE3329DBC97400E19377 /* DogC.mlmodel */,
-				204EC73829D91C170091AD53 /* LaunchScreen.storyboard */,
-				20F3D79129E7EC6C00762A17 /* LMcXPmhqcZ3CrbP1Wb5n--4--4mlk0.jpg */,
 				204EC73B29D91C170091AD53 /* Info.plist */,
 				204EC73329D91C160091AD53 /* DogIdentifier.xcdatamodeld */,
 			);
@@ -177,6 +177,33 @@
 				204EC75029D91C170091AD53 /* DogIdentifierUITestsLaunchTests.swift */,
 			);
 			path = DogIdentifierUITests;
+			sourceTree = "<group>";
+		};
+		20F3D79329E8D4CA00762A17 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				20C4CE3529DCAB6900E19377 /* DogFullClassifier.mlmodel */,
+				20F3D79829E8E91C00762A17 /* DogBreed.swift */,
+				20F3D79A29E9011B00762A17 /* DogBreedManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		20F3D79429E8D4D400762A17 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				204EC73029D91C160091AD53 /* Main.storyboard */,
+				204EC73829D91C170091AD53 /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		20F3D79529E8D4E500762A17 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				204EC72E29D91C160091AD53 /* ViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -291,7 +318,7 @@
 				204EC73A29D91C170091AD53 /* LaunchScreen.storyboard in Resources */,
 				204EC73729D91C170091AD53 /* Assets.xcassets in Resources */,
 				204EC73229D91C160091AD53 /* Main.storyboard in Resources */,
-				20F3D79229E7EC6C00762A17 /* LMcXPmhqcZ3CrbP1Wb5n--4--4mlk0.jpg in Resources */,
+				20F3D79729E8E82300762A17 /* LMcXPmhqcZ3CrbP1Wb5n--4--4mlk0.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,11 +447,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				204EC72F29D91C160091AD53 /* ViewController.swift in Sources */,
+				20F3D79B29E9011B00762A17 /* DogBreedManager.swift in Sources */,
 				20C4CE3629DCAB6900E19377 /* DogFullClassifier.mlmodel in Sources */,
 				204EC72B29D91C160091AD53 /* AppDelegate.swift in Sources */,
 				204EC72D29D91C160091AD53 /* SceneDelegate.swift in Sources */,
 				204EC73529D91C160091AD53 /* DogIdentifier.xcdatamodeld in Sources */,
-				20C4CE3429DBC97400E19377 /* DogC.mlmodel in Sources */,
+				20F3D79929E8E91C00762A17 /* DogBreed.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
