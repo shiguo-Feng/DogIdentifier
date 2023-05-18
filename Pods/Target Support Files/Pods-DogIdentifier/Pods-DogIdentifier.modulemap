@@ -1,0 +1,6 @@
+framework module Pods_DogIdentifier {
+  umbrella header "Pods-DogIdentifier-umbrella.h"
+
+  export *
+  module * { export * }
+}
