@@ -12,7 +12,7 @@ import Alamofire
 import SwiftyJSON
 
 protocol DogBreedManagerDelegate {
-    func updataDisplay(_ DogBreedManager: DogBreedManager, DogBreed: DogBreed)
+    func updateDisplay(_ DogBreedManager: DogBreedManager, dogDescription: String, dogImageURL: String)
 }
 struct DogBreedManager {
     
@@ -26,7 +26,6 @@ struct DogBreedManager {
     func getPredictions(userPickedImage: UIImage) -> [DogBreed] {
         let probs = predicttionsFromModel(userPickedImage)
         let dogs = top2Prediction(probs)
-//        self.delegate?.updataDisplay(self, DogBreed: <#T##DogBreed#>)
         return dogs
     }
     
@@ -59,21 +58,14 @@ struct DogBreedManager {
             let top2 = sortedProbsArray.prefix(2)
             for (index, value) in top2 {
                 let dogName = uniqueLabels[index]
-                if let dogInfo = requestWiki(dogName: dogName) {
-                    let dogDescription = dogInfo.description
-                    let dogImageURL = dogInfo.imageURL
-                    dogBreeds.append(DogBreed(name: dogName, probability: value, description: dogDescription, imageURL: dogImageURL))
-                } else {
-                    print("Error: failed to get dog information for \(dogName).")
-                }
+                dogBreeds.append(DogBreed(name: dogName, probability: value))
             }
             return dogBreeds
         }
         return []
     }
     
-    func requestWiki(dogName: String) -> (description: String, imageURL: String)? {
-        
+    func requestWiki(dogName: String) {
         let parameters: [String:String] = [
             "format": "json",
             "action": "query",
@@ -85,11 +77,6 @@ struct DogBreedManager {
             "redirects": "1",
             "pithumbsize" : "500"
         ]
-        var dogDescription: String = ""
-        var dogImageURL: String = ""
-        
-        //To block the function until the closure has completed executing
-        let semaphore = DispatchSemaphore(value: 0)
 
         Alamofire.request(wikipediaURL, method: .get, parameters: parameters).responseJSON { (response) in
             if response.result.isSuccess {
@@ -97,17 +84,14 @@ struct DogBreedManager {
 //                print(response)
                 let dogJson: JSON = JSON(response.result.value!)
                 let pageid: String = dogJson["query"]["pageids"][0].stringValue
-                dogDescription = dogJson["query"]["pages"][pageid]["extract"].stringValue
-                dogImageURL = dogJson["query"]["pages"][pageid]["thumbnail"]["source"].stringValue
+                let dogDescription = dogJson["query"]["pages"][pageid]["extract"].stringValue
+                let dogImageURL = dogJson["query"]["pages"][pageid]["thumbnail"]["source"].stringValue
+                
+                self.delegate?.updateDisplay(self, dogDescription: dogDescription, dogImageURL: dogImageURL)
+            } else {
+                print("fail to get wiki.")
             }
-            semaphore.signal()
         }
-        
-        _ = semaphore.wait(timeout: .now() + 5.0)
-        if dogDescription.isEmpty || dogImageURL.isEmpty {
-            return nil
-        }
-        return (description: dogDescription, imageURL: dogImageURL)
     }
     
     

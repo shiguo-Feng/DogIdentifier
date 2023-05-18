@@ -10,7 +10,7 @@
 		1C2F7B49B47E96DB8FDA5EA5 /* Pods_DogIdentifier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B911CB6527AB9797542B2F5 /* Pods_DogIdentifier.framework */; };
 		204EC72B29D91C160091AD53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EC72A29D91C160091AD53 /* AppDelegate.swift */; };
 		204EC72D29D91C160091AD53 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EC72C29D91C160091AD53 /* SceneDelegate.swift */; };
-		204EC72F29D91C160091AD53 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EC72E29D91C160091AD53 /* ViewController.swift */; };
+		204EC72F29D91C160091AD53 /* DogIdentifierViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204EC72E29D91C160091AD53 /* DogIdentifierViewController.swift */; };
 		204EC73229D91C160091AD53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 204EC73029D91C160091AD53 /* Main.storyboard */; };
 		204EC73529D91C160091AD53 /* DogIdentifier.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 204EC73329D91C160091AD53 /* DogIdentifier.xcdatamodeld */; };
 		204EC73729D91C170091AD53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 204EC73629D91C170091AD53 /* Assets.xcassets */; };
@@ -48,7 +48,7 @@
 		204EC72729D91C160091AD53 /* DogIdentifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DogIdentifier.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		204EC72A29D91C160091AD53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		204EC72C29D91C160091AD53 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		204EC72E29D91C160091AD53 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		204EC72E29D91C160091AD53 /* DogIdentifierViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogIdentifierViewController.swift; sourceTree = "<group>"; };
 		204EC73129D91C160091AD53 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		204EC73429D91C160091AD53 /* DogIdentifier.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DogIdentifier.xcdatamodel; sourceTree = "<group>"; };
 		204EC73629D91C170091AD53 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -201,7 +201,7 @@
 		20F3D79529E8D4E500762A17 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				204EC72E29D91C160091AD53 /* ViewController.swift */,
+				204EC72E29D91C160091AD53 /* DogIdentifierViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -446,7 +446,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				204EC72F29D91C160091AD53 /* ViewController.swift in Sources */,
+				204EC72F29D91C160091AD53 /* DogIdentifierViewController.swift in Sources */,
 				20F3D79B29E9011B00762A17 /* DogBreedManager.swift in Sources */,
 				20C4CE3629DCAB6900E19377 /* DogFullClassifier.mlmodel in Sources */,
 				204EC72B29D91C160091AD53 /* AppDelegate.swift in Sources */,

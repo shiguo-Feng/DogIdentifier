@@ -11,8 +11,6 @@ import UIKit
 struct DogBreed {
     let name: String
     let probability: Float
-    let description: String
-    let imageURL: String
     
     var probabilityString: String {
         return String(format: "%.2f", probability * 100)
